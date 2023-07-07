@@ -5,6 +5,16 @@
   font-style: normal;
 }
 
+:root[color-mode="dark"]{
+  --background: #000;
+  --textColor: white;
+}
+
+body{
+  background-color : var(--background);
+  color: var(--textColor);
+}
+
 html {
   box-sizing: border-box;
 }
@@ -106,11 +116,11 @@ body * {
   }
 }
 
-/* dark mode 처리
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #000;
     color: white;
   }
 }
-*/
+
