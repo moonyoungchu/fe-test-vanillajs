@@ -8,23 +8,31 @@ class App {
     this.$target = $target;
 
     this.Loading = new Loading({
-      $target
+      $target,
     });
 
     this.darkModeToggle = new DarkModeToggle({
-      $target
+      $target,
     });
 
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
-        console.log(">>>show")
+        console.log(">>>show");
         this.Loading.show();
 
         api.fetchCats(keyword).then(({ data }) => {
           this.setState(data);
           this.Loading.hide();
-          console.log(">>>hide")
+          console.log(">>>hide");
+        });
+      },
+      onRandomSearch: () => {
+        console.log(`>>>random?`);
+        this.Loading.show();
+        api.fetchRandomCats().then(({ data }) => {
+          this.setState(data);
+          this.Loading.hide();
         });
       },
     });
