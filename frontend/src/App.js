@@ -18,13 +18,12 @@ class App {
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
-        console.log(">>>show");
         this.Loading.show();
 
         api.fetchCats(keyword).then(({ data }) => {
           this.setState(data);
           this.Loading.hide();
-          console.log(">>>hide");
+          this.saveResult(data);//로컬에 마지막 조회데이터 저장
         });
       },
       onRandomSearch: () => {
@@ -55,11 +54,30 @@ class App {
         image: null,
       },
     });
+
+    this.init();
   }
 
   setState(nextData) {
     console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  saveResult(result){
+    console.log(`>>>result`, result);
+    localStorage.setItem('lastResult',JSON.stringify(result));
+  }
+
+  init(){
+    let lastResultData =
+      localStorage.getItem("lastResult") === null
+        ? []
+        : JSON.parse(localStorage.getItem("lastResult"));
+
+    this.setState(lastResultData);
+
+    
+
   }
 }
