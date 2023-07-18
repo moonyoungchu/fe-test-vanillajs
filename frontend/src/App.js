@@ -22,13 +22,13 @@ class App {
         this.Loading.show();
 
         api.fetchCats(keyword).then(({ data }) => {
-          this.setState(data);
+          this.setState(data? data : []);
           this.Loading.hide();
           this.saveResult(data);//로컬에 마지막 조회데이터 저장
         });
       },
       onRandomSearch: () => {
-        console.log(`>>>random?`);
+        console.log(`>>>random`);
         this.Loading.show();
         api.fetchRandomCats().then(({ data }) => {
           this.setState(data);
